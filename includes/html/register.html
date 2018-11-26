@@ -1,0 +1,52 @@
+<h2>Register</h2>
+<p>To make selections in the draft, you must register.  Please don't register for a team that is not yours,
+you will mess up the whole draft.</p>
+<p>Your team name will be your team's city as it appears in the game (eg. "New York")</p>
+<p>Please remember your password.</p>
+<p>Your username will be shown next to your team initials and should match your league forum username.</p>
+<p>Your e-mail will be used to send you a notice each time a selection is made.  If you
+do not enter a valid e-mail, you will not receive these notifications.</p>
+<p>If you would like to receive SMS text messages for draft updates enter your 10-digit phone number without dashes,
+and select your carrier.</p>
+<p><form method="post" action="register_run.php">
+  <table class="data" align="center">
+    <tr>
+      <td class="light" align="right" width="45%">Team City:</td>
+      <td class="light"><input type="text" name="team_name" maxlength="40"></td>
+    </tr>
+    <tr>
+      <td class="light" align="right">Password:</td>
+      <td class="light"><input type="password" name="team_password"></td>
+    </tr>
+    <tr>
+      <td class="light" align="right">Forum Username:</td>
+      <td class="light"><input type="text" name="team_owner"></td>
+    </tr>
+    <tr>
+      <td class="light" align="right">E-mail Address:</td>
+      <td class="light"><input type="text" name="team_email"></td>
+    </tr>
+    <tr>
+	<td class="light" align="right">Phone Number (10 digit, no dashes):</td>
+     <td class="light"><input type="text" name="team_phone"></td>
+    </tr>
+	<tr>
+	<td class="light" align="right">Phone Carrier:</td>
+	<td class="light"><select name="team_carrier">
+	  <option value="@txt.att.net">AT&T Wireless</option>
+	  <option value="@page.nextel.com">Nextel (Sprint)</option>
+	  <option value="@messaging.sprintpcs.com">Sprint (PCS)</option>
+	  <option value="@tmomail.net">TMobile</option>
+	  <option value="@email.uscc.net">US Cellular</option>
+	  <option value="@vtext.com">Verizon Wireless</option>
+	</select></td>
+    <tr>
+      <td class="light" align="center" colspan="2">
+	<input type="checkbox" name="save_login">
+	Keep me logged in until I log out
+      </td>
+    </tr>
+  </table>
+  <p><input type="submit" name="submit" value="Register">
+  </form>
+  <p><a href="login_page.php">&laquo; Log in</a>

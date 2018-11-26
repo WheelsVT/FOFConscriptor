@@ -1,0 +1,55 @@
+<h2>Welcome to the</h2>
+<h1>Front Office Football Conscriptor</h1>
+<p>Using this application you can conduct your Amateur Drafts for your MultiPlayer league.</p>
+<p>The following screens will help you configure and install your application.  Please be sure that
+the following is set up ahead of time:
+<ol>
+  <li>You must have access to a database server, and have a database already defined.  If you have a hosting provider
+    who allows you only one database, you will use that one.  If you are able to have multiple databases, you
+    may use an existing one or create one.  The tables created will be "pick", "selection", "player", and "team."
+    If your database already has these tables they will be overwritten ... so be careful if you are using an
+    existing database.</li>
+  <li>This application will write a file into the "includes" directory.  So, the web server must be able to
+    write to this directory.  See below to see if this was successful.</li>
+</ol>
+<p>If successful, you will be prompted to log in using the administrator account.</p>
+<div class="subbox">
+%report%
+</div>
+<p><form method="post" action="install.php">
+  <table align="center">
+    <tr>
+      <td>Enter your database server.  Most of the time this is "localhost":</td>
+      <td><input type="text" name="host" value="localhost"></td>
+    </tr>
+    <tr>
+      <td>Enter the name of the database:</td>
+      <td><input type="text" name="database"></td>
+    </tr>
+    <tr>
+      <td>Enter your username to connect to the database:</td>
+      <td><input type="text" name="user"></td>
+    </tr>
+    <tr>
+      <td>Enter your password to connect to the database:</td>
+      <td><input type="text" name="password"></td>
+    </tr>
+    <tr>
+      <td>Enter the username you will use to administer the draft:</td>
+      <td><input type="text" name="admin_user" value="admin"></td>
+    </tr>
+    <tr>
+      <td>Enter the password you will use to administer the draft:</td>
+      <td><input type="text" name="admin_password"></td>
+    </tr>
+    <tr>
+      <td>Enter the e-mail address you want the draft notifications to come from:</td>
+      <td><input type="text" name="admin_email"></td>
+    </tr>
+    <tr>
+      <td>Enter the URL for your main league page:</td>
+      <td><input type="text" name="league_page"></td>
+    </tr>
+  </table>
+  <p><input type="submit" value="Create Database"></p>
+</form>

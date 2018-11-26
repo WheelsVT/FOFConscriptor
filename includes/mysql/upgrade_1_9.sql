@@ -1,0 +1,1 @@
+INSERT INTO `settings`(`setting_id`, `setting_value`) VALUES (20,1);

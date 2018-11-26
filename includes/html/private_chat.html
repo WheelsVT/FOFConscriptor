@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>%league% Front Office Football Conscriptor version %version%</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/java.js"></script>    
+    <script type="text/javascript">
+      window.addEvent('domready',function(){init_page()});
+    </script>
+  </head>
+  <body class="chat_window">
+    <div></div>
+    <h2>Private chat with %team_name%</h2>
+    <input type="hidden" id="chat_room_id" value="%chat_room_id%">
+    <input type="hidden" id="chat_id" value="%chat_id%">
+    <div style="float: left; width: 50px">&nbsp;</div>
+    <div class="chat_box" id="chat_box"></div>
+    <div class="clear"></div>
+    <form onsubmit="send_chat(); return false">
+      <p>Message: <input type="text" id="message_text" size="80" name="%chat_id%" autocomplete="off">
+      <p><input type="submit" name="submit" value="Send">
+    </form>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+<h3>Import Selection Priority</h3>
+<p>Use this page to import a priority list from the Draft Utility in
+the <a href="http://www.gstelmack.com/UtilitySuite/index.htm">FOF 2007 Utility Suite</a>.
+This will be in a .csv file ("DraftOrder.csv" most likely).  When you import this file, your selection list
+will be replaced by the order of the players in this file.</p>
+<p><form method="post" action="import_draft_order_run.php" enctype="multipart/form-data">
+    <p>File: <input type="file" name="draft_order"></p>
+<p><b>NOTE:</b> Importing a draft file will erase any existing player queue!</p>
+    <p><input type="submit" value="Upload" onclick="return confirm('Importing a new draft file will delete any existing player queue!  Are you sure you want to do this?')"></p>
+</form>

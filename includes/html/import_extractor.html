@@ -1,0 +1,17 @@
+<h3>Import Ratings Data</h3>
+
+<p>To import ratings data, you need to export the scout data from Front Office Football using the option at the bottom of the Almanac menu in FOF7 version 7.0b+.  This will be in a .csv file ("draft_personal.csv" most likely).  When you import this file, the player bars as well
+as the data from your interviews will be visible in all your player lists.</p>
+
+<p><form method="post" action="import_draft_bars_run.php" enctype="multipart/form-data">
+
+    <p>draft_personal.csv: <input type="file" name="team_players"></p>
+
+<p><b>NOTE:</b> Importing a draft file will erase any existing data you have imported!</p>
+
+    <p><input type="submit" value="Upload" onclick="return confirm('Importing a new draft file will delete any existing data!
+
+Are you sure you want to do this?')"></p>
+
+</form>
+

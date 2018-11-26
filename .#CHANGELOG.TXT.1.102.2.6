@@ -1,0 +1,573 @@
+************************************************************************************
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+<<<<<<< CHANGELOG.TXT
+=======
+    $Id: CHANGELOG.TXT,v 1.102.4.5 2009/12/02 23:02:39 jonbaker Exp $
+
+>>>>>>> 1.102.4.5
+************************************************************************************
+
+Version 0.1
+
+Initial Release
+
+---------------------
+
+Version 0.4
+
+Added filters for the players and selections
+Fixed the draft order import if a team lost their draft pick (and are listed as 'xxx')
+
+---------------------
+
+Version 0.5
+
+Added the ability to send e-mail notifications for each pick.  A global e-mail may be set
+by editing the config.inc.php file, or each team may sign up in the options section.
+
+Added a button to re-number your priority list in multiples of 10 for easy re-arranging
+
+Enabled deleting of selections in the priority page
+
+Made the player gray and italic in the priority list if their priority is 0
+
+Fixed the importer so it doesn't break when there are commas in the school name
+
+---------------------
+
+Version 0.6
+
+Fixed the e-mail notification, in version 0.5 it only sent if there was a global
+e-mail notifcation set.
+
+Added the ability for the admin to change the team that is selecting in a given round.
+
+Added the admin e-mail account, which will be sent all draft notifications as well as
+will be the e-mail address that the notifications come from.
+
+---------------------
+
+Version 0.7
+
+Gave the admin account the ability to clear passwords or lock teams out by assigning
+a random password (for AI teams, for example).  This area also shows the number of
+players in each team's queue.
+
+Gave the team an option to turn autopick off.  The admin can turn it back on if they are
+waiting on the team.  When autopick is off, the team may select the player from the "Priority"
+screen directly.
+
+---------------------
+
+Version 0.8
+
+Tracking the time that each team is on the clock and reporting it in the header
+
+Put more information about each player on the players screen
+
+The option to zero out the priority of a position after you have selected a player of that position
+is now able to be turned off
+
+The admin may now stop the draft at any pick
+
+The admin may now roll back the draft, returning players to the board
+
+Teams may choose to make a player list or a list of "Best Player Available" based on general score
+or by any of the other values that are recorded for the players.
+
+-----------------------
+
+Version 0.9
+
+Added a chat feature
+
+-----------------------
+
+Version 0.10
+
+Fixed a bug that caused the BPA selections to mess up if the attempted pick has already been selected
+
+-----------------------
+
+Version 0.11
+
+Fixed a bug where if you had another app on the server using the session variable 'login' it would
+mess up the logging in process for Conscriptor
+
+-----------------------
+
+Version 0.12
+
+Restricted the team name field when registering to 3 characters
+
+-----------------------
+
+Version 0.13
+
+The admin now can see the full chat transcript with time stamps.  Individual users will only see
+the area of the chat while they are logged in.
+
+Changed the player pick function to prevent a potential race condition if there are more than one
+admin and they both pick for the same team at the same time (with two different players)
+
+Added the ability for the admin to view any team's player queue
+
+Added the ability for the admin to skip a team's pick, in the event that they run out of time
+and the admin does not want to pick for them.  Skipping a pick will allow that team to come back
+and make a selection at any time.
+
+-----------------------
+
+Version 0.14
+
+Teams can now send their pick to another team.
+
+Added the actual pick number next to the round-pick display.
+
+Added the ability to add comments to players in your priority list.
+
+-----------------------
+
+Version 0.15
+
+Added the team 'xxx' to the list.  This allows the admin to remove a draft pick.
+
+Enabled the comments and "make selection" on the player list (so you don't have to add them to
+your priority list to do those things)
+
+The chat now pops up on all screens as it is happening.
+
+Changed the e-mails so that they are a single BCC e-mail instead of sending individual
+e-mails to each team.  This will hopefully fix the issue where the database was timing out
+on some servers because it was taking so long for the e-mails to be sent.  Also made it so
+that the admin can turn off the e-mails if it still times out the server (and made the
+default setting to be e-mails off)
+
+Added the ability for the picks to have a time limit and be automatically skipped.  Also
+added a clock where the time limit applies.
+
+------------------------
+
+Version 0.16
+
+The admin still gets e-mail notices even if the e-mail is turned off.
+
+Added the ability for each team's clock to be adjusted by a percentage of the regular pick clock.
+
+Teams now can choose what columns they want to display in the lists.
+
+Added all columns that Extractor exports as available for the lists.  Some of course will not be applicable,
+depending on whether you are doing a full draft or an amateur draft.  This includes the bar values!
+
+Changed BPA to use the bar values.
+
+Allowed the user to upload their own Extractor export so that they can see their scout's impression
+
+Fixed a bug that caused a manual pick to fill a prior skipped pick.  Priority picks worked fine.
+
+------------------------
+
+Version 0.17
+
+Added the player detail page.
+
+------------------------
+
+Version 0.18
+
+The position drill was changed from a bar to just the value on the player info page.
+
+Changed it so that the draft must be stopped to change the pick time and window, as doing that during a running
+draft would cause unpredictable results.
+
+Added an experience limit to the BPA selection method
+
+Added the ability for the admin to add teams
+
+Added combine color coding to match the in-game colors.  Also added height and weight comments on the player details.
+
+------------------------
+
+Version 1.0
+
+Added a private chat feature.
+
+Added sound effects to the chat.  Sounds are in the mp3 folder and may be replaced with any mp3 file.
+
+Added an asterisk to the team name if they are set to autopick and have players in their queue.
+
+Modified the admin user list so that they can see whether a team has a Player List queue or a BPA queue,
+and how many active selections are in that queue.
+
+Changed the draft uploader to not delete existing teams.
+
+------------------------
+
+Version 1.1
+
+Importing a new draft did not clear the comments from the previous draft.
+
+------------------------
+
+Version 1.2
+
+Fixed a bug in the importer that was assigning positional values incorrectly.
+
+Fixed a bug that was displaying the player rating incorrectly (if the player was not a rookie).
+
+Added a general "notes" tab for teams to write notes to themselves not specific to any player.
+
+Added the ability to upload the grade/adjusted grade info.  This is optional but helpful.
+
+Added the "Adjusted Grade" criteria to the BPA.
+
+------------------------
+
+Version 1.3
+
+Added an analyzer dump to the menu.
+
+Changed it so that if you are not logged in, you still can see the selections.
+
+Added the ability to automatically add the 0-priority players to the end of your priority list.
+
+Added the option for teams who time out on the clock to have their selection made automatically, using
+the following logic: 1) If they have a player queue but have their auto-pick off, it picks from the queue.
+2) If not, it will pick the best player available at a position that they have not selected yet in the
+draft.  If there are no players that fit that criteria (i.e. all positions have been selected), then it
+picks the best player available.
+
+Fixed a bug that would turn off the countdown clock if you changed options while the draft clock was running.
+
+Added a checkbox to filter out overrated playes in the players list.
+
+Added the ability to go to the previous/next in your priority queue from the player info page.
+
+------------------------
+
+Version 1.4
+
+Fixed the analyzer dump so it displays in a new window instead of downloading to a text file.
+
+Fixed the bars for TE, Endurance and Special Teams were missing, Long Snapping was assigned to Endurance.
+
+Fixed the birthday display, all birthdays were showing as the 12th of the month.
+
+Added the ability to delay the autopick by up to thirty minutes.
+
+Added a widget that can be embedded on a league homepage.
+
+------------------------
+
+Version 1.5
+
+Added an option for e-mails to only be sent to the team that is on the clock, in addition to the existing
+all picks and no e-mails.
+
+------------------------
+
+Version 1.6
+
+Fixed a bug where comments made on the player info page were not saved correctly.
+
+------------------------
+
+Version 1.7
+
+Allowing persistent logins.
+
+------------------------
+
+Version 1.8
+
+Fixed a bug that was showing the "rating" value as the most recently uploaded team's scout impression.
+Other bars were not affected.
+
+------------------------
+
+Version 1.9
+
+Changed the analyzer dump to display the line breaks correctly
+
+------------------------
+
+Version 1.10
+
+Put the timestamp on the chat for everyone (previously the admin only had the timestamp).
+
+Named the text box for the chat a random name so that it doesn't autofill your chat text.
+
+Added some verification to the Extractor upload so you can't upload old versions of the Extractor (which caused
+corrupt data) and also let you know if you uploaded the wrong file (no players matched).
+
+Fixed a logic bug that caused a team to autopick immediately if they had autopick turned off and 0 as the
+autopick wait time.
+
+Corrected an error in the calculations of the pick time limit if the team goes on the clock but the time
+needs to wrap around to the next day.
+
+------------------------
+
+Version 1.11
+
+Fixed a bug in the auto-picking where if a delay was set and the team's expiration time went into the next day,
+the pick would wait until the next day to fire.
+
+Fixed the analyzer dump to display picks in order and give scrollbars.
+
+Writes to the error log the details of any changed pick.
+
+If a team has a delay on their autopick it now shows in the selections list next to the asterisk.
+
+The user tab in the admin now displays the number of times a team has had their time expire.
+
+Fixed the "reorder priority list appending players with 0 to the end of the list."  Previously it was
+also sorting the existing list in adjusted grade order, then appending the 0-priority players in
+adjusted grade order.
+
+Gave the option for when a pick goes on the clock and will expire after the end of the day's pick
+to either keep the same pick time or roll into the next day.
+
+Fixed the admin options to enable turning the 24-hour clock back on
+
+Fixed the "keep me signed in" cookie so that if an incorrect password is entered it doesn't get stuck
+in an infinite redirect loop.
+
+Changed the chat so that when you first log in it pulls the chat from the previous two hours
+rather than just when you first log in.
+
+Keeps track of the number of teams each team has run out of time and been autopicked.
+
+The admin can now have the pick time limit reduce for any team whose time expires.  This value is
+a percentage, so having it set to 0% will have no reduction, 50% will have the time cut in half
+each time (with a one hour limit the first miss will reduce their time to 30 minutes, the second to 15,
+the third to 7, and so on), 100% will immediately take that team to an immediate pick for all future
+selections.
+
+Fixed the user list when sorted by the clock adjustment.
+.
+------------------------
+
+Version 1.12
+
+Added the ability to change the time zone for the draft times.  Changing during a draft may cause strange
+things to happen with the chat (users may appear to be online who are not).  I only put in the US time zones,
+but if you want to add time zones you may by adding entries in the time_zone table.  You will get an error
+message if the time zone you entered does not have valid data.  If you get this error using the built-in time
+zones, you may not be able to use this feature.  To use the time zone of your system, just set the time zone
+to "Use Server's Time Zone."
+
+------------------------
+
+Version 1.13
+
+Changed the BPA algorithm to use the current rating, then future rating for players who don't have an adjusted grade
+(this is for full drafts).
+
+------------------------
+
+Version 1.14
+
+Changed the max for the formation bar for a QB to 17.
+
+Added the ability to import the Popularity value that is exported from the Interrogator.
+
+------------------------
+
+Version 1.15
+
+Fixed the player popularity tell column to be distinguished from the regular player popularity column.
+
+------------------------
+
+Version 1.16
+
+Fixed the Daylight Saving Time bug (you have to now select EDT or EST for the time zone)
+
+------------------------
+
+Version 1.17
+
+Fixed a bug where the admin user list was showing the player queue count incorrectly
+
+------------------------
+
+Version 1.18
+
+Fixed the player rating on the player card page.
+
+Fixed the player rating on the list so that if a team hasn't uploaded an extractor report,
+it shows the initial uploaded values.
+
+------------------------
+
+Version 1.19
+
+You can now upload an extractor export of the entire league and do a mock draft.  This will
+also enable scout picks, which will pick based on the team's strengths.
+
+Added the ability to limit the autopick delay.
+
+------------------------
+
+Version 1.20
+
+Forced picks now ignore P and K unless all other positions have been selected.
+
+Enabled "current rating" and "future rating" in BPA lists (for allocation drafts)
+
+Randomized the scout pick somewhat, so that the mock draft doesn't always match the actual selections.
+
+------------------------
+
+Version 1.21
+
+Clearing a team's password also clears the e-mail address.
+
+------------------------
+
+Version 1.22
+
+Clearing a team's password sets their clock adjustment value to 0.  Setting a dummy password also
+sets their clock adjustment value to 0.  When a team registers, their clock adjustment value
+is set to 100%.
+
+Mock draft now has commentary on each pick.
+
+------------------------
+
+Version 1.23
+
+Fixed a bug where the mock draft/scout pick would break if the player list was not uploaded
+in adjusted grade order.  Some 1.22.X versions may have problems.
+
+Added the ability to adjust the weight for each position for the scout picks.
+
+------------------------
+
+Version 1.24
+
+Apostrophes in the team name broke the mock draft.
+
+Adding a link for text for posting the first round in a forum.
+
+Added some more phrases to the AI.
+
+------------------------
+
+Version 1.25
+
+The chat page now scrolls to the end of the chat when loaded.
+
+"Show Attributes" and "Filter Overrated" now stay checked if you select players from the players list.
+
+New pick method option: Player Queue then Best At Position.  Selecting this option will use your player queue
+until it is empty, and then will use the BPA queue.
+
+------------------------
+
+Version 1.26
+
+Added effects to the alert messages.
+
+Added some debugging code for developer troubleshooting.
+
+Removing all now() functions in the MySQL code, instead having PHP do all the time calculations.  This should prevent
+the PHP and MySQL clock from getting out of sync.
+
+Adding a bell tone when you go on the clock.
+
+Passwords are now encrypted
+
+------------------------
+
+Version 1.27
+
+Previous versions were expecting magic quotes to be on.  This allowed for SQL injection attacks if
+magic quotes is off, and magic quotes is being depreciated.  The app now tests for magic quotes
+and, if off, adds slashes to the input.
+
+------------------------
+
+Version 1.27.2
+
+Turned autocomplete off for the chat
+
+------------------------
+
+Version 1.27.3
+
+Locking the database when the pick calculations are run.  This prevents a race condition
+where picks were choosing two of the same position, even though the team had the checkbox
+on to zero out players of the same position.
+
+------------------------
+
+Version 1.27.4
+
+Changed to use MooTools, modified the chat code to hopefully be more stable and consistent
+
+------------------------
+
+Version 1.27.5
+
+Changed the pick processing to prevent a race condition where multiple e-mails were being sent
+on each pick
+
+Making the e-mail notification subject the same for all e-mails (removing the round and pick number)
+
+------------------------
+
+Version 1.28
+
+Owners can now choose whether they receive all e-mails or just the e-mails when they go on the clock.
+The admin's options override the owner's if the admin sets it to only send e-mails to the team on the clock
+or none at all.
+
+------------------------
+
+Version 1.28.1
+
+Priority list is now sortable by dragging and dropping.  Also added a quick-add function.
+
+------------------------
+
+Version 1.28.2
+
+Fixed a bug that was preventing the autopicks to fire
+
+------------------------
+
+Version 1.28.3
+
+Chat had broken around 1.28 I believe, it should be fixed now.
+
+------------------------
+
+Version 1.28.4
+
+Including a json_encode class for the quick search on PHP < 5.2
+
+------------------------
+
+Version 1.28.5
+
+Pick queue was limiting itself to 32 (or whatever you happened to have previously saved the number of rows
+displayed as)
+
+Giving a count of the players in the priority list
+
+Adding players to the queue now puts them into the end of the active queue instead of the beginning

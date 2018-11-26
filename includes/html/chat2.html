@@ -1,0 +1,27 @@
+<head><script type="text/javascript" language="javascript"><!--
+
+function fill(a)
+{
+   var MyElement = document.getElementById("message_text");
+   MyElement.value += a;
+   return true;
+}
+
+//--></script></head>
+
+<input type="hidden" id="chat_on" value="1">
+<input type="hidden" id="chat_room_id" value="%chat_room_id%">
+<input type="hidden" id="chat_id" value="%chat_id%">
+<h2>Chat</h2>
+%instructions%
+<p>Click on a team in the list to request a private chat.  Note: The invitation may take up to 1 minute to be received, but this delay helps keep our server operating smoothly.</p>
+<p>You can type the symbols or click these emoticons to add them to your message <img src="images/icons/smile.png" onclick="fill(':\)')"><img src="images/icons/frown.png" onclick="fill(':\(')"><img src="images/icons/lol.png" onclick="fill(':D')"><img src="images/icons/tongue.png" onclick="fill(':P')"><img src="images/icons/eek.png" onclick="fill(':O')"><img src="images/icons/mad.png" onclick="fill('}:-\(')"><img src="images/icons/wink.png" onclick="fill('\;\)')"></p>
+<div class="chat_spacer"></div>
+<div class="chat_left" id="chat_users"></div>
+<div class="chat_spacer"></div>
+<div class="chat_box" id="chat_box">%chat%</div>
+<div class="clear"></div>
+<form onsubmit="send_chat(); return false">
+  <p>Message: <input type="text" id="message_text" size="80" name="%chat_id%" autocomplete="off">
+  <p><input type="submit" name="submit" value="Send">
+</form>
