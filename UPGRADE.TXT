@@ -1,0 +1,54 @@
+UPGRADING THE FOF CONSCRIPTOR
+
+There are two ways to upgrade the FOF Conscriptor:
+
+  * The easy way
+  * The not quite as easy way
+
+Here are the details on these two fabulous methods.
+
+****************
+  THE EASY WAY
+****************
+
+The easy way blows away the database in one swoop, making your database perfect for the current
+version.
+
+When you unzip the conscriptor.zip file, it contains all the files needed except the file
+
+/includes/config.inc.php
+
+If you unzip your file on top of an old installation, you must remove this file to force the
+re-install.  If you replace an existing installation with the newly unzipped folder, the config
+file should not exist, so it will run the installer.
+
+This file is created when installing the Conscriptor.  If you want to wipe out the database
+and start over, just delete this file.  By the same token, if you unzip a new version of
+the Conscriptor on top of an old version, you can delete this file to force it to re-install.
+NOTE: The installer script will NOT run if the config.inc.php file exists.
+
+*****************************
+  THE NOT QUITE AS EASY WAY
+*****************************
+
+If you have version 1.0 or greater, you don't have to do a complete re-install to update your
+system.  This means that you can perform the update on a live draft.  Here are the steps involved:
+
+1. Back up your database and current copy of the conscriptor!  In the event that the upgrade goes
+   south, you will want to be able to recover your existing installation.
+
+2. Unzip the conscriptor.zip on top of the old directory, or copy the /includes/config.inc.php
+   file into the new copy.
+
+3. Look in the /includes/mysql folder for a MySQL upgrade script.  The upgrade script will be
+   named "upgrade_X_X.sql" where the X_X corresponds to the version that the upgrader needs to be run for.
+   For example, if you have version 1.0 and you see upgrade_1_1.sql, and the new version is 1.2, you
+   will need to run upgrade_1_1.sql to get there.  If you are on version 4.5 and you are upgrading to
+   4.9, and you see upgrade_4_6.sql and upgrade_4_8.sql, run those two files in order (upgrade_4_6.sql
+   would bring you up to the database scema for 4.7 and 4.8, upgrade_4_8.sql would bring you up to date
+   for 4.9, etc).  The easiest way to run these scripts is to import them in phpMyAdmin, or if you have
+   terminal access just run the command:
+
+      mysql -u[username] -p [database] < upgrade_X_X.sql
+   
+   This will bring your database up to the current version and you will be ready to go!
