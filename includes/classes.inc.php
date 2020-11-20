@@ -20,8 +20,8 @@
 session_name('FOFCONSCRIPTOR');
 session_start();
 
-define (kVersion, '2.6.1');
-define (kYear, '2014');
+define (kVersion, '2.8.1');
+define (kYear, '2017');
 
 // Classes
 include "includes/classes/page.inc.php";

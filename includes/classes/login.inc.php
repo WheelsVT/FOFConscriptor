@@ -630,6 +630,20 @@ their autopick off.  This can be up to the pick time limit or 30 minutes if no p
       $result = mysql_query($statement);
 	 $result = mysql_fetch_array($result);
 	$rounds = $result['pick_id']/32;
+
+    $draft_type = $settings->get_value(kSettingDraftType);
+
+    $html .= "<tr>";
+    $html .= "<td align='right' class='light'>Draft type</td>";
+    $html .= "<td class='light'>";
+    $html .= "<input type='radio' name='draft_type' value='timed_draft' ". (!$draft_type || $draft_type == 'timed_draft' ? 'checked' : '')."/>Timed draft&nbsp;";
+    $html .= "<input type='radio' name='draft_type' value='slotted_draft' ". ($draft_type == 'slotted_draft' ? 'checked' : '')."/>Slotted draft";
+    $html .= "</td>";
+    $html.='<td class="light">In a timed draft the Pick time limit is used as the amount of time each team has to make a pick.<br/>';
+    $html.='In a slotted draft each team as a fixed date and time within which to make the pick.<br/>';
+    $html.='(Eg. if the draft starts at 8am and the pick time limit for that round is 1 hour: Team 1 as until 9am to make the pick, team 2 has until 10am, ...)<br/>';
+    $html.='The expiring date for each pick can be edited on the selection screen</td>';
+    $html .= "</tr>";
 	for ( $i=1; $i<$rounds+1; $i++ ){
 		$html .= '
     <tr>
@@ -660,23 +674,21 @@ their autopick off.  This can be up to the pick time limit or 30 minutes if no p
         <select name="round_'.$i.'_pick_limit_min"'.$time_access.'>';
       $m = 0;
       while($m < 60) {
-	if ($m == $min) {
-	  $selected = " selected";
-	} else {
-	  $selected = "";
-	}
-	$html .= '
+        if ($m == $min) {
+          $selected = " selected";
+        } else {
+          $selected = "";
+        }
+        $html .= '
           <option value="'.$m.'"'.$selected.'>'.sprintf("%02d", $m).'</option>';
-	$m += 5;
+            $m += 5;
       }
-      $html .= '
-        </select>';
+      $html .= '</select>';
       if (!$stopped) {
-	$html .= '
-(Stop the draft to change)';
+        $html .= '(Stop the draft to change)';
       }
-      $html .= '
-      </td>';
+      $html .= '</td>';
+
       if ( $i==1 ){
           $html.='<td class="light">The pick time limit will cause the current pick to be skipped or the 
               BPA selected at the end of the time limit, and the clock in the menu will count 

@@ -37,6 +37,7 @@ define (kSettingSMTPEncryptType, 17);
 define (kSettingChatTemplateCode, 18);
 define (kSettingAdminEmail, 19);
 define (kSettingStaffDraftOn, 20);
+define (kSettingDraftType, 21);
 
 // Config constants
 define (kExpireSkipPick, 0); // Default, skip pick when expired
