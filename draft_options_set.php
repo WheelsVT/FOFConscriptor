@@ -129,42 +129,24 @@ if ($login->is_site_admin() && !$has_email) {
 
 // If admin, we might be changing the options
 if ($login->is_admin()) {
-  if ($_POST['pick_id']) {
-    // We have a halt round
-    $pick_id = $_POST['pick_id'];
-    $statement = "update pick set player_id = '".kDraftHalt."', pick_time = NULL
-where player_id is NULL and pick_id >= '$pick_id'";
-    mysql_query($statement);
-    $statement = "update pick set player_id = NULL, pick_time = NULL
-where player_id = '".kDraftHalt."' and pick_id < '$pick_id'";
-    mysql_query($statement);
-    reset_current_pick_clock();
-  } else {
-    // No halt round, all player_id's need to be NULL
-    $statement = "update pick set player_id = NULL, pick_time = NULL
-where player_id = '".kDraftHalt."'";
-    mysql_query($statement);
-    reset_current_pick_clock();
-  }
-  // Set the league name
-  if ($_POST['league_name']) {
-    $settings->set_value(kSettingLeagueName, $_POST['league_name']);
-  }
-  
+
+  $draft_type = $_POST['draft_type'];
+  $settings->set_value(kSettingDraftType, $draft_type);
+
   if ($_POST['time_access'] > 0) {
     // Draft clock
     if ($_POST['start_hour'] > 0 && $_POST['end_hour'] > 0) {
       $start_time = strtotime($_POST['start_hour'].':'.sprintf("%02d", $_POST['start_min']).' '.$_POST['start_ampm']);
       $end_time = strtotime($_POST['end_hour'].':'.sprintf("%02d", $_POST['end_min']).' '.$_POST['end_ampm']);
       if ($start_time > $end_time) {
-	$_SESSION['message'] = "The start time was later than the end time.";
+	    $_SESSION['message'] = "The start time was later than the end time.";
       } else {
-	$settings->set_value(kSettingStartTime, $start_time);
-	$settings->set_value(kSettingEndTime, $end_time);
+	    $settings->set_value(kSettingStartTime, $start_time);
+	    $settings->set_value(kSettingEndTime, $end_time);
       }
     } else {
       $settings->set_value(kSettingStartTime, 0);
-      $settings->set_value(kSettingEndTime, 0);      
+      $settings->set_value(kSettingEndTime, 0);
     }
     
     // Set the pick time limit
@@ -209,11 +191,11 @@ where player_id = '".kDraftHalt."'";
 	      $time = floor($window/60);
 	    }
 	    $settings->set_value((100+$i), $time);
-	   // Make sure no teams have the option set longer than the new pick time limit
+	    // Make sure no teams have the option set longer than the new pick time limit
 	    if ($time) {
 	      $new_wait_limit = $time-5;
 	      if ($new_wait_limit < 0) {
-		$new_wait_limit = 0;
+		    $new_wait_limit = 0;
 	      }
 	      $statement = "update team set team_autopick_wait = '$new_wait_limit' where team_autopick_wait >= '$time'";
 	      mysql_query($statement);
@@ -229,6 +211,67 @@ where player_id = '".kDraftHalt."'";
  
     // Time zone
     $settings->set_value(kSettingTimeZone, $_POST['time_zone']);
+  }
+
+  if($draft_type == "slotted_draft") {
+    $start_time = strtotime(date("Y-m-d ", strtotime("now")).date("H:i:s", $settings->get_value(kSettingStartTime)));
+    $end_time = strtotime(date("Y-m-d ", strtotime("now")).date("H:i:s", $settings->get_value(kSettingEndTime)));
+    if($settings->get_value(kSettingStartTime) == 0 || $settings->get_value(kSettingEndTime) == 0){
+        $_SESSION['message'] = "You must specify a start and an end time to run a slotted draft";
+    }
+
+    if(strtotime("now") > $start_time){
+        $start_time += 3600 * 24;
+        $end_time += 3600 * 24;
+    }
+
+    $current_round = 0;
+    $current_time_for_each_pick = 0;
+    $statement = "select * from pick order by pick_id";
+    $result = mysql_query($statement);
+    while($row_pick = mysql_fetch_array($result)){
+      if($row_pick['pick_id'] == 0)
+          continue;
+      if($row_pick['player_id'] > 0)
+          continue;
+      $round = ceil(($row_pick['pick_id'])/32);
+      if($current_round != $round){
+        $current_round = $round;
+        $current_time_for_each_pick = $settings->get_value((100+$current_round));
+      }
+
+      $expire = $start_time + ($current_time_for_each_pick*60);
+      if($expire > $end_time){
+          $expire = strtotime(date("Y-m-d ", $start_time + (3600 * 24)).date("H:i:s", $settings->get_value(kSettingStartTime))) + $current_time_for_each_pick*60;
+          $end_time += 3600 * 24;
+      }
+      $start_time = $expire;
+
+      $statement = "update pick set slotted_draft_expire = '".date("Y-m-d H:i:s", $expire)."' where pick_id = ".$row_pick['pick_id'];
+      mysql_query($statement);
+    }
+  }
+
+  if ($_POST['pick_id']) {
+    // We have a halt round
+    $pick_id = $_POST['pick_id'];
+    $statement = "update pick set player_id = '".kDraftHalt."', pick_time = NULL
+where player_id is NULL and pick_id >= '$pick_id'";
+    mysql_query($statement);
+    $statement = "update pick set player_id = NULL, pick_time = NULL
+where player_id = '".kDraftHalt."' and pick_id < '$pick_id'";
+    mysql_query($statement);
+    reset_current_pick_clock();
+  } else {
+    // No halt round, all player_id's need to be NULL
+    $statement = "update pick set player_id = NULL, pick_time = NULL
+where player_id = '".kDraftHalt."'";
+    mysql_query($statement);
+    reset_current_pick_clock();
+  }
+  // Set the league name
+  if ($_POST['league_name']) {
+    $settings->set_value(kSettingLeagueName, $_POST['league_name']);
   }
 
   //$settings->set_value(kSettingAutoPickWhenClockOff,$_POST['auto_when_clock_off']);
