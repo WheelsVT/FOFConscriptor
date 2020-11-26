@@ -943,6 +943,10 @@ if (pick.player_id = '".kSkipPick."', concat('<a href=\"unskip_pick.php?pick_id=
 skip";
       $list->set_header("skip", "Skip/Force Pick");
     }
+    if($login->is_admin() && $settings->get_value(kSettingDraftType) == 'slotted_draft'){
+      $col[] = "concat(DATE_FORMAT(pick.slotted_draft_expire,'%Y-%m-%d %I:%i %p'),  if (pick.player_id is NULL or pick.player_id < 1, concat('&nbsp; <a href=\"slotted_draft_change_time.php?pick_id=', pick.pick_id, '\">Change</a>'), NULL)) expire_time";
+      $list->set_header("expire_time", "Expire time");
+    }
 
     $html .= '
 <form method="get" action="selections.php">
@@ -1533,6 +1537,17 @@ and player_id is NULL";
     $pick_id = $_GET['pick_id'];
     $pick = new pick($pick_id);
     return $pick->draw_edit();
+  }
+
+  function draw_slotted_draft_change_time() {
+    global $login;
+    if (!$login->team_id()) {
+      header("Location: ./");
+      exit;
+    }
+    $pick_id = $_GET['pick_id'];
+    $pick = new pick($pick_id);
+    return $pick->slotted_draft_change_time();
   }
 
   function draw_options() {

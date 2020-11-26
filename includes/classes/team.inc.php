@@ -321,27 +321,44 @@ where ".implode(" and ",$wheres)."
     if (!$settings->get_value(kSettingEndTime)) {
       return date("Y-m-d H:i:s", $time);
     }
-    $end_time = strtotime(date("Y-m-d ", $time).date("H:i:s", $settings->get_value(kSettingEndTime)));
-    $start_time = strtotime(date("Y-m-d ", strtotime("tomorrow",$time)).date("H:i:s", $settings->get_value(kSettingStartTime)));
-    $limit = $settings->get_value(kSettingPickTimeLimit)*$this->data['team_clock_adj'];
-    if ($time > $end_time) {
-      // past the end time, return tomorrow's start time
-      $return = date("Y-m-d H:i:s", $start_time);
-    } elseif ($time < strtotime(date("Y-m-d ",$time).date("H:i:s", $settings->get_value(kSettingStartTime)))) {
-      // Before today's start time, return today's start time
-      $return = date("Y-m-d H:i:s",strtotime(date("Y-m-d ",$time).date("H:i:s", $settings->get_value(kSettingStartTime))));
-    } else {
-      $my_end = strtotime("+$limit minutes", $time);
-      if ($settings->get_value(kSettingRolloverMethod) == kRollIntoTomorrow && $my_end > $end_time) {
-	// Don't have enough time, let's see how far we go over
-	$difference = $my_end - $end_time;
-	$new_start = $start_time + $difference - ($limit*60);
-	$return = date("Y-m-d H:i:s", $new_start);
-      } else {
-	// Have enough time, return $time
-	$return = date("Y-m-d H:i:s", $time);
-      }
+
+    switch($settings->get_value(kSettingDraftType)) {
+        case "timed_draft":
+            $start_time = strtotime(date("Y-m-d ", strtotime("tomorrow",$time)).date("H:i:s", $settings->get_value(kSettingStartTime)));
+            $end_time = strtotime(date("Y-m-d ", $time).date("H:i:s", $settings->get_value(kSettingEndTime)));
+            $limit = $settings->get_value(kSettingPickTimeLimit)*$this->data['team_clock_adj'];
+            if ($time > $end_time) {
+              // past the end time, return tomorrow's start time
+              $return = date("Y-m-d H:i:s", $start_time);
+            } elseif ($time < strtotime(date("Y-m-d ",$time).date("H:i:s", $settings->get_value(kSettingStartTime)))) {
+              // Before today's start time, return today's start time
+              $return = date("Y-m-d H:i:s",strtotime(date("Y-m-d ",$time).date("H:i:s", $settings->get_value(kSettingStartTime))));
+            } else {
+              $my_end = strtotime("+$limit minutes", $time);
+              if ($settings->get_value(kSettingRolloverMethod) == kRollIntoTomorrow && $my_end > $end_time) {
+                // Don't have enough time, let's see how far we go over
+                $difference = $my_end - $end_time;
+                $new_start = $start_time + $difference - ($limit*60);
+                $return = date("Y-m-d H:i:s", $new_start);
+              } else {
+                // Have enough time, return $time
+                $return = date("Y-m-d H:i:s", $time);
+              }
+            }
+            break;
+        case "slotted_draft":
+            // first figure out wich round is the team pick
+            $statement = "select * from pick where player_id is NULL order by pick_id limit 1";
+            $row = mysql_fetch_array(mysql_query($statement));
+            if($row['team_id'] == $this->data['team_id']){
+                $return = $row['slotted_draft_expire'];
+            } else {
+                echo ("ERROR: can't set pick time. The team on the clock is not the current team [".$row['team_id'].",".$this->data['team_id']."]");
+                exit;
+            }
+            break;
     }
+
     return $return;
   }
 
